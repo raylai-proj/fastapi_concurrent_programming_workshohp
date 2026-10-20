@@ -17,6 +17,8 @@ The server generates `book_id`; clients must not provide it.
 }
 ```
 
+**Example request with unknown values:**
+
 ```json
 {
     "title": "Example Book",
@@ -39,7 +41,7 @@ The server generates `book_id`; clients must not provide it.
 }
 ```
 
-**Invalid Example request:**
+**Invalid Example request: `title` must be a string, not `null`**
 
 ```json
 {
@@ -51,6 +53,8 @@ The server generates `book_id`; clients must not provide it.
 }
 ```
 
+**Invalid Example request: `author` must be a string., not `null`**
+
 ```json
 {
     "title": "Example title",
@@ -60,6 +64,8 @@ The server generates `book_id`; clients must not provide it.
     "currency": "USD"
 }
 ```
+
+**Invalid Example request: the client must not supply `book_id`.**
 
 ```json
 {
@@ -72,6 +78,8 @@ The server generates `book_id`; clients must not provide it.
 }
 ```
 
+**Invalid Example request: `price` and `currency` must both be known or both be `null`.**
+
 ```json
 {
     "title": "Example title",
@@ -81,3 +89,16 @@ The server generates `book_id`; clients must not provide it.
     "currency": "USD"
 }
 ```
+
+## Field rules
+
+| Field | Create request rule | Response rule |
+|---|---|---|
+| `book_id` | Must not be supplied by client | Server-generated integer |
+| `title` | Required string; trim surrounding whitespace; reject blank values; maximum 256 characters | String |
+| `author` | Required single string; trim surrounding whitespace; reject blank values; maximum 256 characters | String |
+| `publish_year` | Required key; integer from 1 to 9999, or `null`; future years are allowed | Integer or `null` |
+| `price` | Required key; non-negative decimal string with exactly two fractional digits, or `null` | Decimal string or `null` |
+| `currency` | Required key; `"USD"` or `null`; must be `null` exactly when `price` is `null` | `"USD"` or `null` |
+
+Unknown fields are rejected. `price` and `currency` must either both have values or both be `null`.
