@@ -36,6 +36,7 @@ class BookCreate(BaseModel):
 
     # mode="before" means run function(raw_input) before pydantic parsing, validating
     # classmethod means function receive class object as cls instead of self to run
+    # field_validator = validator used to validate field
     @field_validator("title", "author", mode="before")
     @classmethod
     def trim_text(cls, value: object) -> object:
