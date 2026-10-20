@@ -24,6 +24,7 @@ class BookCreate(BaseModel):
     # regular expression:
     # r"" in pattern = raw python string
     # ^ in pattern = start of the string, $ = end of string
+    # (?:...) = non-capture group: grouping is needed in regex logic, but don't need to extract it
     # 0|[1-9] = 0 or one digit 1-9
     # [0-9]* = zero or more digits from 0-9
     # \. = backslash(\) to have .
