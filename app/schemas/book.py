@@ -43,6 +43,7 @@ class BookCreate(BaseModel):
         return value.strip() if isinstance(value, str) else value
 
     # mode="after" means run function after input has been validated
+    # model_validator = validator used to validate model
     @model_validator(mode="after")
     def validate_price_currency_pair(self) -> "BookCreate":
         if (self.price == None) != (self.currency == None):
