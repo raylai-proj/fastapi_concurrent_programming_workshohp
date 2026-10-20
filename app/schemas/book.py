@@ -46,6 +46,25 @@ class BookCreate(BaseModel):
     # model_validator = validator used to validate model
     @model_validator(mode="after")
     def validate_price_currency_pair(self) -> "BookCreate":
-        if (self.price == None) != (self.currency == None):
+        if (self.price is None) != (self.currency is None):
+            raise ValueError("price and currency must both be set or both be null")
+        return self
+
+class BookRead(BaseModel):
+    """Represent a book returned by the API."""
+
+    # from_attributes=True let pydantic build the response for SQLAlchemy's attributes
+    model_config = ConfigDict(from_attributes=True)
+
+    book_id: int
+    title: str
+    author: str
+    publish_year: int | None
+    price: str | None
+    currency: Literal["USD"] | None
+
+    @model_validator(mode="after")
+    def validate_price_currency_pair(self) -> "BookRead":
+        if (self.price is None) != (self.currency is None):
             raise ValueError("price and currency must both be set or both be null")
         return self
