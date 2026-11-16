@@ -4,6 +4,7 @@ from app.services.books import create_book_record
 
 router = APIRouter(prefix="/books")
 
+
 @router.post("", response_model=BookRead, status_code=status.HTTP_201_CREATED)
 async def create_book(book: BookCreate) -> BookRead:
     """

@@ -2,6 +2,7 @@ from fastapi import FastAPI
 
 from app.routers import health
 
+
 def create_app() -> FastAPI:
     """Create and configure the Book API application."""
     app = FastAPI(title="Book API")

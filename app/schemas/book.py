@@ -8,6 +8,7 @@ from pydantic import (
     model_validator,
 )
 
+
 class BookCreate(BaseModel):
     """The pydantic model to define what data does a book have."""
 
@@ -31,7 +32,7 @@ class BookCreate(BaseModel):
     # [0-9]{2} = two digit of 0-9 after the decimal point
     price: str | None = Field(pattern=r"^(?:0|[1-9][0-9]*)\.[0-9]{2}$")
 
-    # Literal["USD"] strict currency only accept string "USD" 
+    # Literal["USD"] strict currency only accept string "USD"
     currency: Literal["USD"] | None
 
     # mode="before" means run function(raw_input) before pydantic parsing, validating
@@ -49,6 +50,7 @@ class BookCreate(BaseModel):
         if (self.price is None) != (self.currency is None):
             raise ValueError("price and currency must both be set or both be null")
         return self
+
 
 class BookRead(BaseModel):
     """Represent a book returned by the API."""
