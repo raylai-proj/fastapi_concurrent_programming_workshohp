@@ -46,7 +46,7 @@ class BookCreate(BaseModel):
     # mode="after" means run function after input has been validated
     # model_validator = validator used to validate model
     @model_validator(mode="after")
-    def validate_price_currency_pair(self) -> "BookCreate":
+    def validate_price_currency_pair(self) -> BookCreate:
         if (self.price is None) != (self.currency is None):
             raise ValueError("price and currency must both be set or both be null")
         return self
@@ -66,7 +66,7 @@ class BookRead(BaseModel):
     currency: Literal["USD"] | None
 
     @model_validator(mode="after")
-    def validate_price_currency_pair(self) -> "BookRead":
+    def validate_price_currency_pair(self) -> BookRead:
         if (self.price is None) != (self.currency is None):
             raise ValueError("price and currency must both be set or both be null")
         return self
