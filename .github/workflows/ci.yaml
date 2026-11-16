@@ -16,7 +16,7 @@ permissions:
 jobs:
   checks:
     name: Lint, format, and test health route
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
 
     steps:
       - name: Checkout repository
@@ -28,7 +28,7 @@ jobs:
           python-version: 3.14
 
       - name: Set up uv
-        uses: astral-sh/setup-uv@v10
+        uses: astral-sh/setup-uv@v10.3.3
 
       - name: install lock dependencies
         run: uv sync --locked --group dev
